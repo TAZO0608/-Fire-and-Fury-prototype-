@@ -16,7 +16,9 @@ class TANK_DO_API ATank_Controller : public APlayerController
 
 public:
 	ATank * GetTank();
-	
-	
+	virtual void BeginPlay() override;
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+	void  AimWhat();
 	
 };
