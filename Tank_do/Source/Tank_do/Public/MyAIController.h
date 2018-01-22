@@ -14,9 +14,10 @@ class TANK_DO_API AMyAIController : public AAIController
 {
 	GENERATED_BODY()
 	
-public:
+private:
 	ATank * GetPlayTank();
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 	
 	
 };

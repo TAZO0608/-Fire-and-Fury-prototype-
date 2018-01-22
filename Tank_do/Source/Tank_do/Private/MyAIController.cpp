@@ -16,6 +16,16 @@ void AMyAIController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *(G_Tank->GetName()));
 	}
 }
+void AMyAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	auto AITank = Cast<ATank >(GetPawn());
+	
+	if (GetPlayTank()) {
+		AITank->ToAim(GetPlayTank()->GetActorLocation());
+	}
+	
+}
 ATank* AMyAIController::GetPlayTank()
 {
 	auto TT = GetWorld()->GetFirstPlayerController()->GetPawn();

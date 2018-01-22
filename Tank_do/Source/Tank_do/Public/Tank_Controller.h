@@ -14,11 +14,18 @@ class TANK_DO_API ATank_Controller : public APlayerController
 {
 	GENERATED_BODY()
 
-public:
+private:
 	ATank * GetTank();
 	virtual void BeginPlay() override;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	void  AimWhat();
+	bool Hitsomthing(FVector& outHitLocation );
+	UPROPERTY(EditAnyWhere)
+	float crosshair_x = 0.5 ;
+	UPROPERTY(EditAnyWhere)
+	float crosshair_y = 0.33333;
+	UPROPERTY(EditAnyWhere)
+	float Distance = 1000000;
 	
 };
