@@ -22,10 +22,10 @@ void ATank_Controller::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	AimWhat();
-	//UE_LOG(LogTemp, Warning, TEXT("ZZZZZ"));
+	
 
 }
-ATank* ATank_Controller::GetTank() 
+ATank* ATank_Controller::GetTank() const
 {
 	return Cast<ATank >(GetPawn());
 }
@@ -52,7 +52,7 @@ bool ATank_Controller::Hitsomthing(FVector& outHitLocation)
 	if (DeprojectScreenPositionToWorld(ScreeonLocation.X, ScreeonLocation.Y, CameraLocation, WorldDirection)) 
 	{
 		FHitResult HitSomeone;
-		if (GetWorld()->LineTraceSingleByChannel(HitSomeone, CameraLocation, CameraLocation + (WorldDirection*Distance), ECollisionChannel::ECC_Visibility))
+		if (GetWorld()->LineTraceSingleByChannel(HitSomeone, CameraLocation, CameraLocation + (WorldDirection*Distance), ECollisionChannel::ECC_Camera))
 		{
 			outHitLocation = HitSomeone.Location;
 			return true;
@@ -60,6 +60,25 @@ bool ATank_Controller::Hitsomthing(FVector& outHitLocation)
 	}
 	return false;
 }
+void ATank_Controller::OnPossedTankDeath()
+{
+	UE_LOG(LogTemp, Warning, TEXT("DDDDDDReceived!"))
+		if (!ensure(GetPawn())) { return; }
+	StartSpectatingOnly();
+}
+void  ATank_Controller::SetPawn(APawn* InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		auto PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) { return; }
+
+		
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATank_Controller::OnPossedTankDeath);
+	}
+}
+
 
 
 

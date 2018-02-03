@@ -13,11 +13,19 @@ UCLASS()
 class TANK_DO_API AMyAIController : public AAIController
 {
 	GENERATED_BODY()
-	
+public:
+	UFUNCTION()
+	void  OnPossedTankDeath();
+	UPROPERTY(VisibleAnywhere, Category = "Com")
+	UParticleSystemComponent* mSmoke = nullptr;
 private:
+	void   SetPawn(APawn* InPawn) override;
 	ATank * GetPlayTank();
+	ATank* my;
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
-	
+	UPROPERTY(EditAnywhere, Category = "Setup")
+	float RadiusToPlayer = 6000;
+
 	
 };

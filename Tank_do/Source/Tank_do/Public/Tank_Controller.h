@@ -6,16 +6,23 @@
 #include "GameFramework/PlayerController.h"
 #include "Tank_Controller.generated.h"
 
-/**
- * 
- */
+
+
 UCLASS()
 class TANK_DO_API ATank_Controller : public APlayerController
 {
 	GENERATED_BODY()
+public:
+	UFUNCTION()
+	void  OnPossedTankDeath();
+protected:
+		UFUNCTION(BlueprintCallable, Category = "Setup")
+		ATank * GetTank() const;
+
 
 private:
-	ATank * GetTank();
+	
+	void   SetPawn(APawn* InPawn) override;
 	virtual void BeginPlay() override;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
